@@ -1,0 +1,32 @@
+apply {
+    from("$rootDir/android-library-build.gradle")
+}
+
+android {
+    sourceSets {
+        // non-instrumental test example
+//        test {
+//            java.srcDir project(":test-module").file("src/test/java")
+//        }
+        // instrumental test example
+        androidTest {
+            java.srcDir project(Modules.ui_heroList).file("src/androidTest/java")
+        }
+    }
+}
+
+dependencies {
+    implementation project(Modules.core)
+    implementation project(Modules.heroDomain)
+    implementation project(Modules.heroInteractors)
+    implementation project(Modules.components)
+    implementation project(Modules.constants)
+
+    implementation Coil.coil
+
+    androidTestImplementation project(Modules.heroDataSourceTest)
+    androidTestImplementation ComposeTest.uiTestJunit4
+    androidTestImplementation project(path: ':hero:ui-heroList')
+    debugImplementation ComposeTest.uiTestManifest
+    androidTestImplementation Junit.jUnitTest
+}
